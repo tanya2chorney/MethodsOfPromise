@@ -1,15 +1,20 @@
-function rendomTime(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-const firstPromis = new Promise((resolve) =>
-  setTimeout(() => resolve("First message"), rendomTime(1000, 5000))
-);
-const secondPromis = new Promise((resolve) =>
-  setTimeout(() => resolve("Second message"), rendomTime(1000, 5000))
-);
-const thirdPromis = new Promise((resolve) =>
-  setTimeout(() => resolve("Third message"), rendomTime(1000, 5000))
-);
-Promise.race([firstPromis, secondPromis, thirdPromis]).then((result) =>
-  console.log(`A ${result} has won`)
-);
+const randomDelay = (value) => {
+  return new Promise((resolve) => {
+    const delay = Math.floor(Math.random() * (5000 - 1000 + 1) + 1000);
+    setTimeout(() => {
+      resolve(value);
+    }, delay);
+  });
+};
+
+const promises = [
+  randomDelay("Promise 1"),
+  randomDelay("Promise 2"),
+  randomDelay("Promise 3"),
+  randomDelay("Promise 4"),
+  randomDelay("Promise 5"),
+];
+
+Promise.race(promises).then((result) => {
+  console.log(`A ${result} has won`);
+});
